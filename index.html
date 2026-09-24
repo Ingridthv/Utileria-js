@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utileria JS - Formulario</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="contenedor">
+    <h1>Registro</h1>
+
+    <form id="formRegistro">
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Ej. Ingrid Arcadio">
+        <span class="error" id="errorNombre"></span>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo</label>
+        <input type="text" id="correo" placeholder="Ej. ingrid@gmail.com">
+        <span class="error" id="errorCorreo"></span>
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono (10 dígitos)</label>
+        <input type="text" id="telefono" placeholder="Ej. 9511234567">
+        <span class="error" id="errorTelefono"></span>
+      </div>
+
+      <div class="campo">
+       <label for="fechaNacimiento">Fecha de nacimiento</label>
+       <input type="text" id="fechaNacimiento" placeholder="Ej. 2000-05-10">
+       <span class="error" id="errorFecha"></span>
+      </div>
+
+      <div class="campo">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder=" ">
+        <span class="error" id="errorPassword"></span>
+      </div>
+
+      <button type="submit">Registrarme</button>
+    </form>
+
+    <div class="enlace">
+      <a href="login.html">Inicia sesión</a>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlayModal">
+    <div class="modal">
+      <h2>Registro exitoso</h2>
+      <p id="textoEdad"></p>
+      <button id="cerrarModal">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="js/utileria.js"></script>
+<script>
+  var form = document.getElementById("formRegistro");
+  var overlayModal = document.getElementById("overlayModal");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var nombre = document.getElementById("nombre").value;
+    var correo = document.getElementById("correo").value;
+    var telefono = document.getElementById("telefono").value;
+    var fechaNacimiento = document.getElementById("fechaNacimiento").value;
+    var password = document.getElementById("password").value;
+
+    var campos = [
+      { valido: soloLetras(nombre), error: "errorNombre", mensaje: "Solo se permiten letras." },
+      { valido: validarCorreo(correo), error: "errorCorreo", mensaje: "Correo no válido." },
+      { valido: validarTelefono(telefono), error: "errorTelefono", mensaje: "Teléfono no válido (10 dígitos)." },
+      { valido: esMayorDeEdad(fechaNacimiento), error: "errorFecha", mensaje: "Debes ser mayor de edad." },
+      { valido: validarPassword(password), error: "errorPassword", mensaje: "Contraseña no válida." }
+    ];
+
+    var formularioValido = true;
+
+    for (var i = 0; i < campos.length; i++) {
+      var campo = campos[i];
+      if (campo.valido) {
+        document.getElementById(campo.error).textContent = "";
+      } else {
+        document.getElementById(campo.error).textContent = campo.mensaje;
+        formularioValido = false;
+      }
+    }
+
+    if (!formularioValido) return;
+
+    var nombreCapitalizado = capitalizarTexto(nombre);
+    var edad = calcularEdad(fechaNacimiento);
+
+    console.log("Registro exitoso:", nombreCapitalizado, edad);
+
+    document.getElementById("textoEdad").textContent = "Hola " + nombreCapitalizado + ", tu edad es: " + edad + " años.";
+    overlayModal.classList.add("activo");
+  });
+
+  document.getElementById("cerrarModal").addEventListener("click", function () {
+    overlayModal.classList.remove("activo");
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
