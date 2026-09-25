@@ -92,9 +92,15 @@ capitalizarTexto("MARÍA lópez"); // "María López"
 
 ![Captura de registro](img/ima2.png)
 
+**Registro exitoso**
+![Captura de registro exitoso](img/ima4.png)
+
 **Login (formulario + consola):**
 
 ![Captura de login](img/ima1.png)
+
+**Entrar**
+![Captura de login exito](img/ima3.png)
 
 ## Sitio web
 
