@@ -113,4 +113,5 @@ capitalizarTexto("MARÍA lópez"); // "María López"
 
 ## Video
 
-🎥 *(link al video aquí)*
+🎥 https://youtube.com/shorts/NgTcEuaNRYU?si=GvdZ0uIzb_dLIFRr
+
